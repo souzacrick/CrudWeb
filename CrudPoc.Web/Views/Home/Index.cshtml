@@ -1,0 +1,86 @@
+﻿@model CrudViewModel
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+    <div>
+        @if (Model.Saved)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Dados Salvos com Sucesso!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        <h1 class="display-4 text-center">Dados Cadastrados</h1>
+        <div class="row">
+            <div class="form-group">
+                @Html.ActionLink("Adicionar", "Create", new { }, new { @class = "btn btn-outline-primary" })
+                @Html.ActionLink("Recarregar", "Index", new { }, new { @class = "btn btn-outline-info" })
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-striped text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Announcement.ID)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Announcement.Make)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Announcement.Model)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Announcement.Version)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Announcement.Year)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Announcement.Mileage)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Announcement.Observation)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.LstAnnouncements)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Make)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Version)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mileage)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Observation)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "badge badge-pill badge-success" })
+                            @Html.ActionLink("Remover", "Delete", new { id = item.ID }, new { @class = "badge badge-pill badge-danger" })
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

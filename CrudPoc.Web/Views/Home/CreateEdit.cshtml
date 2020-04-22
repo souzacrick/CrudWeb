@@ -1,0 +1,103 @@
+﻿@model CrudViewModel
+
+@{
+    ViewData["Title"] = "CreateEdit";
+}
+
+<h1 class="display-4 text-center">@(Model.Announcement.ID == 0 ? "Criar" : "Editar")</h1>
+<div class="col-lg-12">
+    @using (Html.BeginForm("CreateEdit", "Home", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.Announcement.ID)
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.DisplayNameFor(o => o.Announcement.Make)
+                @Html.DropDownListFor(o => o.Announcement.Make, Model.Makes, "-- Selecione --", new { @class = "form-control", @id = "Make" })
+                @Html.ValidationMessageFor(o => o.Announcement.Make)
+            </div>
+            <div class="form-group col-md-4">
+                @Html.DisplayNameFor(o => o.Announcement.Model)
+                @Html.DropDownListFor(o => o.Announcement.Model, Model.Models, "-- Selecione --", new { @class = "form-control", @id = "Model" })
+                @Html.ValidationMessageFor(o => o.Announcement.Model)
+            </div>
+            <div class="form-group col-md-4">
+                @Html.DisplayNameFor(o => o.Announcement.Version)
+                @Html.DropDownListFor(o => o.Announcement.Version, Model.Versions, "-- Selecione --", new { @class = "form-control", @id = "Version" })
+                @Html.ValidationMessageFor(o => o.Announcement.Version)
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.DisplayNameFor(o => o.Announcement.Year)
+                @Html.TextBoxFor(o => o.Announcement.Year, new { @class = "form-control" })
+                @Html.ValidationMessageFor(o => o.Announcement.Year)
+            </div>
+            <div class="form-group col-md-4">
+                @Html.DisplayNameFor(o => o.Announcement.Mileage)
+                @Html.TextBoxFor(o => o.Announcement.Mileage, new { @class = "form-control" })
+                @Html.ValidationMessageFor(o => o.Announcement.Mileage)
+            </div>
+            <div class="form-group col-md-4">
+                @Html.DisplayNameFor(o => o.Announcement.Observation)
+                @Html.TextBoxFor(o => o.Announcement.Observation, new { @class = "form-control" })
+                @Html.ValidationMessageFor(o => o.Announcement.Observation)
+            </div>
+        </div>
+        <div class="col-lg-12 text-right">
+            @Html.ActionLink("Voltar", "Index", new { }, new { @class = "btn btn-outline-warning" })
+            <button type="submit" class="btn btn-outline-success">Salvar</button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+            $('#Make').change(function () {
+                var selectedMake = $("#Make").val();
+                var model = $('#Model');
+                model.empty();
+                var version = $('#Version');
+                version.empty();
+                if (selectedMake != null && selectedMake != '' && selectedMake != 0) {
+                    $.getJSON('@Url.Action("GetModels")', { makeID: selectedMake }, function (models) {
+                        if (models != null && !jQuery.isEmptyObject(models))
+                        {
+                            model.append($('<option/>', {
+                                value: 0,
+                                text: "-- Selecione --"
+                            }));
+                            $.each(models, function (index, md) {
+                                model.append($('<option/>', {
+                                    value: md.id,
+                                    text: md.name
+                                }));
+                            });
+                        };
+                    });
+                }
+            });
+
+        $('#Model').change(function () {
+                var selectedModel = $("#Model").val();
+                var version = $('#Version');
+                version.empty();
+                if (selectedModel != null && selectedModel != '' && selectedModel != 0) {
+                    $.getJSON('@Url.Action("GetVersions")', { modelID: selectedModel }, function (versions) {
+                        if (versions != null && !jQuery.isEmptyObject(versions))
+                        {
+                            version.append($('<option/>', {
+                                value: 0,
+                                text: "-- Selecione --"
+                            }));
+                            $.each(versions, function (index, vs) {
+                                version.append($('<option/>', {
+                                    value: vs.id,
+                                    text: vs.name
+                                }));
+                            });
+                        };
+                    });
+                }
+            });
+    </script>
+}

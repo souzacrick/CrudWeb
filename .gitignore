@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/CrudPoc.API/CRUDPoc/logs
+/CrudPoc.API/bin/Debug/netcoreapp2.2
+/CrudPoc.API/obj
+/CrudPoc.API/CrudPoc.API.csproj.user
+/CrudPoc.Client/obj
+/CrudPoc.Client/bin/Debug/netcoreapp2.2
+/CrudPoc.Model/obj
+/CrudPoc.Model/bin/Debug/netcoreapp2.2
+/CrudPoc.Repository/obj
+/CrudPoc.Repository/bin/Debug/netcoreapp2.2
+/CrudPoc.Web/obj
+/CrudPoc.Web/bin/Debug/netcoreapp2.2
